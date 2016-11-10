@@ -1,0 +1,30 @@
+<div class="container" id="todo-list-main">
+  <div class="page-header">
+    <h1>To-Do List</h1>
+  </div>
+</div>
+  <header class="app-header">
+    <h1 class="app-title">{{ appTitle }}</h1>
+    <h1 class="app-headline">{{ appHeadline }}</h1>
+  </header>
+
+<section class="app-body">
+    <section class="archive-control">
+      <span>{{ remaining() }} of {{ todos.length }} remaining</span>
+      <p>[ <a href="" ng-click="archive()">Remove Completed Items</a> ]</p>
+    </section>
+
+    <ul class="unstyled">
+      <li ng-repeat="todo in todos track by $index">
+        <input type="checkbox" ng-model="todo.done">
+        <span class="done-{{ todo.done }}">{{ todo.text }}</span>
+      </li>
+    </ul>
+
+    <form data-ng-submit="addTodo()" class="todo-form">
+      <input type="text" ng-model="todoText" placeholder="Enter new ToDo item" ng-minlength="1" required />
+      <br />
+      <input type="submit" value="Add Task" />
+    </form>
+  </section>
+</div>
