@@ -7,24 +7,31 @@
     <h1 class="app-title">{{ appTitle }}</h1>
     <h1 class="app-headline">{{ appHeadline }}</h1>
   </header>
-
 <section class="app-body">
-    <section class="archive-control">
-      <span>{{ remaining() }} of {{ todos.length }} remaining</span>
+  <section class="archive-control">
+    <span>{{ remaining() }} of {{ todos.length }} remaining</span>
       <p>[ <a href="" ng-click="archive()">Remove Completed Items</a> ]</p>
-    </section>
-
-    <ul class="unstyled">
-      <li ng-repeat="todo in todos track by $index">
-        <input type="checkbox" ng-model="todo.done">
-        <span class="done-{{ todo.done }}">{{ todo.text }}</span>
-      </li>
-    </ul>
-
-    <form data-ng-submit="addTodo()" class="todo-form">
-      <input type="text" ng-model="todoText" placeholder="Enter new ToDo item" ng-minlength="1" required />
-      <br />
-      <input type="submit" value="Add Task" />
-    </form>
   </section>
-</div>
+  <ul class="unstyled">
+    <li ng-repeat="todo in todos track by $index">
+      <input id='check' type="checkbox" ng-model="todo.done">
+      <span class="done-{{ todo.done }}">{{ todo.text }}
+        <a type="button" class="btn btn-default btn-xs" ng-click="editTodo(todo.id)">
+          <span class="glyphicon glyphicon-pencil"></span>Edit
+        </a>
+        <a type="button" class="btn btn-default btn-xs" ng-click="removeTodo(todo.id)">
+          <span class="glyphicon glyphicon-remove"></span>
+        Remove
+        </a>
+      </span>
+    </li>
+  </ul>
+  <center>
+    <a type="button" class="btn btn-primary btn-lg" ui-sref="todos.create">
+      <span class="glyphicon glyphicon-plus"></span>
+        New task
+    </a>
+  </center>
+</section>
+
+<div ui-view></div>

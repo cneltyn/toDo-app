@@ -4,19 +4,8 @@ angular.module('todoApp.components')
 function todoListController ($scope) {
   $scope.appTitle = "Do or do not, there is no try";
   $scope.saved = localStorage.getItem('todos');
-  $scope.todos = (localStorage.getItem('todos')!==null) ? JSON.parse($scope.saved) : [ {text: 'Learn AngularJS', done: false}, {text: 'Build an Angular app', done: false} ];
+  $scope.todos = (localStorage.getItem('todos')!==null) ? JSON.parse($scope.saved) : [ {id: 0, text: 'Learn AngularJS', done: false}, {id: 1, text: 'Build an Angular app', done: false} ];
   localStorage.setItem('todos', JSON.stringify($scope.todos));
-
-  console.log($scope.todos);
-  console.log(localStorage.todos);
-  $scope.addTodo = function() {
-    $scope.todos.push({
-      text: $scope.todoText,
-      done: false
-    });
-    $scope.todoText = ''; //clear the input after adding
-    localStorage.setItem('todos', JSON.stringify($scope.todos));
-  };
 
   $scope.remaining = function() {
     var count = 0;
@@ -31,6 +20,25 @@ function todoListController ($scope) {
     $scope.todos = [];
     angular.forEach(oldTodos, function(todo){
       if (!todo.done)
+        $scope.todos.push(todo);
+    });
+    localStorage.setItem('todos', JSON.stringify($scope.todos));
+  };
+
+  $scope.editTodo = function(id) {
+    //console.log(id);
+    //console.log($scope.todoText);
+    //var todos = JSON.parse(localStorage.todos);
+    //console.log($scope.todos[id]);
+    //todos[id].text = 'fw';
+    //localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
+  $scope.removeTodo = function(id) {
+    var oldTodos = $scope.todos;
+    $scope.todos = [];
+    angular.forEach(oldTodos, function(todo){
+      if (todo.id !== id)
         $scope.todos.push(todo);
     });
     localStorage.setItem('todos', JSON.stringify($scope.todos));

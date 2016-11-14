@@ -73,7 +73,7 @@ gulp.task('serve', ['build'], function() {
 
   gulp.watch('src/**/*.js', ['js']);
   gulp.watch('src/**/*.html', ['html']);
-  gulp.watch('src/**/*.scss', ['styles']);
+  gulp.watch('src/**/*.sass', ['styles']);
   //.on('change', browserSync.reload);
 
   connect.server({
