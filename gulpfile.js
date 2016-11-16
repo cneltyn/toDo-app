@@ -19,14 +19,15 @@ const browserSync = require('browser-sync').create();
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 
 // tasks
-// gulp.task('lint', function() {
-//   gulp.src(['src/app.js', 'src/**/_module.js', 'src/**/*.js'])
-//     .pipe(jshint())
-//     .pipe(jshint.reporter('default'))
-//     .pipe(jshint.reporter('fail'));
-// });
+gulp.task('lint', gulp.series(function(done) {
+  gulp.src(['src/app.js', 'src/**/_module.js', 'src/**/*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter('fail'));
+  return done();
+}));
 
-gulp.task('js', function() {
+gulp.task('js', gulp.series(function(done) {
   gulp.src(['src/app.js', 'src/**/_module.js', 'src/**/*.js'])
     .pipe(sourcemaps.init())
     .pipe(iife())
@@ -35,16 +36,18 @@ gulp.task('js', function() {
     .pipe(uglify())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist'))
-    .pipe(connect.reload())
-});
+    .pipe(connect.reload());
+  return done();
+}));
 
-gulp.task('html', function() {
+gulp.task('html', gulp.series(function(done) {
   gulp.src('src/**/*.html')
     .pipe(gulp.dest('dist'))
     .pipe(connect.reload());
-});
+  return done();
+}));
 
-gulp.task('styles', function() {
+gulp.task('styles', gulp.series(function(done) {
   gulp.src('src/**/*.sass')
     .pipe(gulpIf(isDevelopment, sourcemaps.init()))
     .pipe(sass().on('error', sass.logError))
@@ -53,27 +56,28 @@ gulp.task('styles', function() {
     .pipe(gulpIf(isDevelopment, sourcemaps.write()))
     .pipe(gulp.dest('dist'))
     .pipe(connect.reload());
-});
+  return done();
+}));
 
 // gulp.task('clean', function() {
 //   gulp.src('dist', { read: false })
 //     .pipe(clean({ force: true}));
 // });
-gulp.task('clean', function() {
+gulp.task('clean', gulp.series(function() {
   return del('dist');
-});
+}));
 // //build once
-gulp.task('build', ['js', 'html', 'styles']);
+gulp.task('build', gulp.parallel('js', 'html', 'styles', 'lint'));
 
 //dev server
-gulp.task('serve', ['build'], function() {
+gulp.task('serve', gulp.series('build', function(done) {
   // browserSync.init({
   //   server: 'dist'
   // });
 
-  gulp.watch('src/**/*.js', ['js']);
-  gulp.watch('src/**/*.html', ['html']);
-  gulp.watch('src/**/*.sass', ['styles']);
+  gulp.watch('src/**/*.js', gulp.series('js'));
+  gulp.watch('src/**/*.html', gulp.series('html'));
+  gulp.watch('src/**/*.sass', gulp.series('styles'));
   //.on('change', browserSync.reload);
 
   connect.server({
@@ -81,5 +85,5 @@ gulp.task('serve', ['build'], function() {
     livereload: true,
     port: 8080
   });
-
-});
+  return done();
+}));
