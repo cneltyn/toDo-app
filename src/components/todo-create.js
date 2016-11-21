@@ -1,24 +1,16 @@
 angular.module('todoApp.components')
-  .controller('TodoCreateController', todoCreateController);
+  .component('todo-create', {
+    restrict: 'E',
+    scope: {},
+    templateUrl: 'todo-create.html',
+    controller: TodoCreateController
+});
 
-function todoCreateController($scope) {
-  	console.log($scope.todos.length);
-  	console.log(localStorage.todos);
-  	$scope.addTodo = function() {
-  		console.log($scope.todoText);
-  		//console.log($scope.todos[$scope.todos.length - 1].id);
-  		var tmp = null;
-  		if ($scope.todos.length > 0) {
-  			tmp = $scope.todos[$scope.todos.length - 1].id;
-  		}
-  		else tmp = -1;
-
-	    $scope.todos.push({
-	    	id: ++tmp,
-	    	text: $scope.todoText,
-      		done: false
-    	});
-    	$scope.todoText = '';
-    	localStorage.setItem('todos', JSON.stringify($scope.todos));
-  	};
+function TodoCreateController(todos, ToDoService) {
+    var self = this;
+    self.todos = todos;
+    self.addTodo = function() {
+      ToDoService.addTodo(self.todoText);
+      self.todoText = '';
+    };
 }

@@ -1,46 +1,40 @@
+// angular.module('todoApp.components')
+//   .controller('TodoListController', todoListController);
+
 angular.module('todoApp.components')
-  .controller('TodoListController', todoListController);
+  .component('todos', {
+    // restrict: 'E',
+    // scope: {},
+    bindings: {
+    todos: '='
+    },
+    templateUrl: 'components/todo-list.html',
+    controller: TodoListController
+    // controllerAs: 'tlCntl'
+  });
 
-function todoListController ($scope) {
-  $scope.appTitle = "Do or do not, there is no try";
-  $scope.saved = localStorage.getItem('todos');
-  $scope.todos = (localStorage.getItem('todos')!==null) ? JSON.parse($scope.saved) : [ {id: 0, text: 'Learn AngularJS', done: false}, {id: 1, text: 'Build an Angular app', done: false} ];
-  localStorage.setItem('todos', JSON.stringify($scope.todos));
-
-  $scope.remaining = function() {
-    var count = 0;
-    angular.forEach($scope.todos, function(todo){
-      count+= todo.done ? 0 : 1;
-    });
-    return count;
+function TodoListController (ToDoService) {
+  var self = this;
+  self.appTitle = ToDoService.appTitle;
+  console.log(self.appTitle);
+  //console.log($scope.$parent.$resolve.todos);
+  self.todos = todos;
+  console.log(self.todos);
+  self.removeTodo = function(id) {
+    ToDoService.removeTodo(id);
   };
-
-  $scope.archive = function() {
-    var oldTodos = $scope.todos;
-    $scope.todos = [];
-    angular.forEach(oldTodos, function(todo){
-      if (!todo.done)
-        $scope.todos.push(todo);
-    });
-    localStorage.setItem('todos', JSON.stringify($scope.todos));
+  self.remaining = function() {
+    return ToDoService.remaining();
   };
-
-  $scope.editTodo = function(id) {
-    //console.log(id);
-    //console.log($scope.todoText);
-    //var todos = JSON.parse(localStorage.todos);
-    //console.log($scope.todos[id]);
-    //todos[id].text = 'fw';
-    //localStorage.setItem("todos", JSON.stringify(todos));
-  };
-
-  $scope.removeTodo = function(id) {
-    var oldTodos = $scope.todos;
-    $scope.todos = [];
-    angular.forEach(oldTodos, function(todo){
-      if (todo.id !== id)
-        $scope.todos.push(todo);
-    });
-    localStorage.setItem('todos', JSON.stringify($scope.todos));
+  self.archive = function() {
+    ToDoService.archive();
   };
 }
+
+// angular.module('todoApp.components')
+//   .component('todos', {
+//     restrict: 'E',
+//     scope:{},
+//     templateUrl: 'components/todo-list.html',
+//     controller: TodoListController
+//   });

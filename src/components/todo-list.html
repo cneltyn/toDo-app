@@ -4,28 +4,31 @@
   </div>
 </div>
   <header class="app-header">
-    <h1 class="app-title">{{ appTitle }}</h1>
-    <h1 class="app-headline">{{ appHeadline }}</h1>
+    <h1>  </h1>
+    <h1 class="app-title">{{ $ctrl.appTitle }}</h1>
+    <h1 class="app-headline"></h1>
   </header>
 <section class="app-body">
   <section class="archive-control">
-    <span>{{ remaining() }} of {{ todos.length }} remaining</span>
-      <p>[ <a href="" ng-click="archive()">Remove Completed Items</a> ]</p>
+    <span>{{ $ctrl.remaining() }} of {{ $ctrl.todos.length }} remaining</span>
+      <p>[ <a href="" ng-click="$ctrl.archive()">Remove Completed Items</a> ]</p>
   </section>
   <ul class="unstyled">
-    <li ng-repeat="todo in todos track by $index">
+    <li ng-repeat="todo in $ctrl.todos track by $index">
       <input id='check' type="checkbox" ng-model="todo.done">
       <span class="done-{{ todo.done }}">{{ todo.text }}
-        <a type="button" class="btn btn-default btn-xs" ng-click="editTodo(todo.id)">
-          <span class="glyphicon glyphicon-pencil"></span>Edit
+        <a type="button" class="btn btn-default btn-xs" ui-sref="todos.edit">
+          <span class="glyphicon glyphicon-pencil"></span>
+          Edit
         </a>
-        <a type="button" class="btn btn-default btn-xs" ng-click="removeTodo(todo.id)">
+        <a type="button" class="btn btn-default btn-xs" ng-click="$ctrl.removeTodo(todo.id)">
           <span class="glyphicon glyphicon-remove"></span>
         Remove
         </a>
       </span>
     </li>
   </ul>
+  <div ui-view></div>
   <center>
     <a type="button" class="btn btn-primary btn-lg" ui-sref="todos.create">
       <span class="glyphicon glyphicon-plus"></span>
@@ -33,5 +36,3 @@
     </a>
   </center>
 </section>
-
-<div ui-view></div>
