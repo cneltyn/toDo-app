@@ -1,17 +1,20 @@
 angular.module('todoApp.components')
-  .component('todo-edit', {
-    restrict: 'E',
-    scope: {},
-    templateUrl: 'todo-edit.html',
-    bindings: {appTitle: '='},
+  .component('edit', {
+    bindings: {
+      todos: '<'
+    },
+    templateUrl: 'components/todo-edit.html',
     controller: TodoEditController
   });
 
-function TodoEditController(todos, ToDoService) {
+function TodoEditController(ToDoService) {
 	var self = this;
-  console.log(self.appTitle);
-  self.todos = todos;
-    self.editTodo = function() {
+
+  console.log(self.todos);
+  //self.todos = todos;
+
+  self.editTodo = function() {
+      console.log(self.todos.id);
       ToDoService.editTodo(self.todoText);
       self.todoText = '';
   };

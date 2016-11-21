@@ -8,32 +8,29 @@ function routing ($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('todos', {
       url: '/todos',
-      // templateUrl: 'components/todo-list.html',
-      // controller: 'TodoListController',
-      // controllerAs: 'tlCntl',
       template: '<todos todos="$resolve.todos"></todos>',
       resolve: {
         todos: function(ToDoService) {
-          return ToDoService.resolve('todos@getTodos');
+          return ToDoService.getTodos();
         }
       }
     })
     .state('todos.create', {
       url: '/create',
-      template: "<create></create>"
-      //templateUrl: 'components/todo-create.html',
-      //controller: 'TodoCreateController',
-      //controllerAs: 'tcCntl'
+      template: '<create todos="$resolve.todos"></create>',
+      resolve: {
+        todos: function(ToDoService) {
+          return ToDoService.getTodos();
+        }
+      }
     })
     .state('todos.edit', {
       url: '/edit',
-      template: "<edit></edit>"
-      // templateUrl: 'components/todo-edit.html',
-      // controller: 'TodoEditController',
-      // controllerAs: 'teCntl'
+      template: '<edit todos=$resolve.todos></edit>',
+      resolve: {
+        todos: function(ToDoService) {
+          return ToDoService.getTodos();
+        }
+      }
     });
-    // .state('otherwise', {
-    //   url: '/todos',
-    //   templateUrl: 'components/todo-list.html'
-    // });
 }

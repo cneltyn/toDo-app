@@ -64,6 +64,7 @@ function ToDoService() {
 
   self.editTodo = function(todoText) {
   	console.log(todoText);
+  	console.log(self.todos.id);
     localStorage.setItem('todos', JSON.stringify(self.todos));
     //console.log(id);
     //console.log($scope.todoText);
