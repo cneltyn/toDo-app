@@ -4,7 +4,6 @@
   </div>
 </div>
   <header class="app-header">
-    <h1>  </h1>
     <h1 class="app-title">{{ $ctrl.appTitle }}</h1>
   </header>
 <section class="app-body">
@@ -16,7 +15,7 @@
     <li ng-repeat="todo in $ctrl.todos track by $index">
       <input id='check' type="checkbox" ng-model="todo.done">
       <span class="done-{{ todo.done }}">{{ todo.text }}
-        <a type="button" class="btn btn-default btn-xs" ui-sref="todos.edit">
+        <a type="button" class="btn btn-default btn-xs" ui-sref="todos.edit({ id: todo.id})">
           <span class="glyphicon glyphicon-pencil"></span>
           Edit
         </a>

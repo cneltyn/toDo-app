@@ -1,6 +1,6 @@
 angular.module('todoApp.components')
   .component('footer', {
-    templateUrl: 'components/footer.html',
+    templateUrl: 'components/footer/footer.html',
     controller: TodoFooter
   });
 

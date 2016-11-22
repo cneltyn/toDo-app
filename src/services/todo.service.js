@@ -13,8 +13,29 @@ function ToDoService() {
   		return self.todos;
 	};
 
-	self.getById = function(id) {
+	self.find = function(id) {
+		var todo = self.todos.filter(function (todo) {
+			return todo.id === parseInt(id, 10);
+		});
 
+		return todo && todo[0] || null;
+	};
+
+	self.getById = function(id) {
+		var index = self.todos
+							.map(function (element) {return element.id;})
+							.indexOf(id);
+		if (index === -1) {
+			return;
+		}
+		return index;
+	};
+
+	self.getUnDo = function() {
+		self.todos = self.todos.filter(function(todo) {
+			return todo.done !== true;
+		});
+		return self.todos;
 	};
 
 	self.remaining = function() {
@@ -26,23 +47,11 @@ function ToDoService() {
 	};
 
 	self.archive = function() {
-		console.log(self.todos.filter(function(todo) {
-			return todo.done !== true;
-		}));
-		self.todos = self.todos.filter(function(todo) {
-			return todo.done !== true;
-		});
-		localStorage.setItem('todos', JSON.stringify(self.todos));
+		localStorage.setItem('todos', JSON.stringify(self.getUnDo()));
 	};
 
 	self.removeTodo = function(id) {
-		var index = self.todos
-							.map(function (element) {return element.id;})
-							.indexOf(id);
-		if (index === -1) {
-			return;
-		}
-		self.todos.splice(index, 1);
+		self.todos.splice(self.getById(id), 1);
 		localStorage.setItem('todos', JSON.stringify(self.todos));
 	};
 
@@ -62,16 +71,7 @@ function ToDoService() {
       	localStorage.setItem('todos', JSON.stringify(self.todos));
     };
 
-  self.editTodo = function(todoText) {
-  	console.log(todoText);
-  	console.log(self.todos.id);
-    localStorage.setItem('todos', JSON.stringify(self.todos));
-    //console.log(id);
-    //console.log($scope.todoText);
-    //var todos = JSON.parse(localStorage.todos);
-    //console.log($scope.todos[id]);
-    //todos[id].text = 'fw';
-    //localStorage.setItem("todos", JSON.stringify(todos));
-  };
-  //return elem by id
+  	self.editTodo = function() {
+  	  	localStorage.setItem('todos', JSON.stringify(self.todos));
+  	};
 }

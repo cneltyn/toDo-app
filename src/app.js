@@ -25,11 +25,11 @@ function routing ($stateProvider, $urlRouterProvider) {
       }
     })
     .state('todos.edit', {
-      url: '/edit',
-      template: '<edit todos=$resolve.todos></edit>',
+      url: '/edit/:id',
+      template: '<edit todo=$resolve.todo></edit>',
       resolve: {
-        todos: function(ToDoService) {
-          return ToDoService.getTodos();
+        todo: function($stateParams, ToDoService) {
+          return ToDoService.find($stateParams.id);
         }
       }
     });

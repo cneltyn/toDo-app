@@ -3,7 +3,7 @@ angular.module('todoApp.components')
     bindings: {
       todos: '<'
     },
-    templateUrl: 'components/todo-list.html',
+    templateUrl: 'components/list/todo-list.html',
     controller: TodoListController
   });
 
@@ -22,5 +22,6 @@ function TodoListController (ToDoService) {
 
   self.archive = function() {
     ToDoService.archive();
+    self.todos = ToDoService.getTodos();
   };
 }

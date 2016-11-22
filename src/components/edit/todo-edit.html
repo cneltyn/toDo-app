@@ -1,0 +1,8 @@
+<form ng-submit="$ctrl.editTodo()" class="todo-form" type="submit">
+	<input type="text" ng-model="$ctrl.todo.text" placeholder="Edit ToDo item" required/>
+     	<br />
+    <input type="submit" value="Edit task"/>
+</form>
+<center>
+	<a class="btn btn-danger" ng-disabled="!$ctrl.todo.text" ui-sref="todos">Hide input</a>
+</center>

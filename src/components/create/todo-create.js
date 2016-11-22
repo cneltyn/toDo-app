@@ -3,7 +3,7 @@ angular.module('todoApp.components')
     bindings: {
       todos: '<'
     },
-    templateUrl: 'components/todo-create.html',
+    templateUrl: 'components/create/todo-create.html',
     controller: TodoCreateController
   });
 
