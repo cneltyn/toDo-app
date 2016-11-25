@@ -4,8 +4,8 @@ angular.module('todoApp.components')
     controller: TodoFooter
   });
 
-  function TodoFooter() {
-    var self = this;
+function TodoFooter() {
+  var self = this;
 
-    self.date = Date.now();
+  self.date = Date.now();
 }

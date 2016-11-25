@@ -8,9 +8,9 @@ angular.module('todoApp.components')
   });
 
 function TodoEditController($state, ToDoService) {
-	var self = this;
+  var self = this;
 
-  self.editTodo = function() {
+  self.editTodo = function () {
     ToDoService.editTodo();
     $state.go('todos');
   };

@@ -7,20 +7,20 @@ angular.module('todoApp.components')
     controller: TodoListController
   });
 
-function TodoListController (ToDoService) {
+function TodoListController(ToDoService) {
   var self = this;
 
   self.appTitle = ToDoService.appTitle;
 
-  self.removeTodo = function(id) {
+  self.removeTodo = function (id) {
     ToDoService.removeTodo(id);
   };
 
-  self.remaining = function() {
+  self.remaining = function () {
     return ToDoService.remaining();
   };
 
-  self.archive = function() {
+  self.archive = function () {
     ToDoService.archive();
     self.todos = ToDoService.getTodos();
   };

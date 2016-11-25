@@ -1,0 +1,19 @@
+        {
+          "extends": "airbnb-base/legacy",
+          "globals": {
+            "angular": true,
+            "moment": true,
+            "window": true,
+            "document": true
+          },
+          "rules": {
+            "max-len": [1, 120, 2],
+            "no-use-before-define": ["error", { "functions": false, "classes": false }],
+            "func-names": ["error", "never"],
+            "linebreak-style": 0,
+            "no-param-reassign": 0
+          },
+          "env": {
+            "mocha": true
+          }
+        }

@@ -9,12 +9,11 @@ angular.module('todoApp.components')
   .directive('drag', [function () {
     return {
       restrict: 'EA',
-      scope: {content:'='},
-      link: function (scope, element, attrs, controller) {
-
-        scope.content = "or drop a .txt file here, edit and copy upwards";
-
+      scope: { content: '=' },
+      link: function (scope, element) {
         var processDragOverOrEnter;
+
+        scope.content = 'or drop a .txt file here, edit and copy upwards';
 
         processDragOverOrEnter = function (event) {
           if (event !== null) {
@@ -29,17 +28,15 @@ angular.module('todoApp.components')
         element.bind('drop', handleDropEvent);
 
         function insertText(loadedFile) {
-
           scope.content = loadedFile.target.result;
           scope.$apply();
         }
 
         function handleDropEvent(event) {
-
+          var reader = new FileReader();
           if (event !== null) {
             event.preventDefault();
           }
-          var reader = new FileReader();
           reader.onload = insertText;
           reader.readAsText(event.dataTransfer.files[0]);
         }
@@ -49,8 +46,7 @@ angular.module('todoApp.components')
 
 function TodoCreateController($state, ToDoService) {
   var self = this;
-  console.log(this.text);
-  self.addTodo = function() {
+  self.addTodo = function () {
     ToDoService.addTodo(self.todoText);
     $state.go('todos');
   };
