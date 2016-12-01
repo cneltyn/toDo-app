@@ -26,7 +26,7 @@
       <md-list-item class="md-3-line" ng-repeat="todo in $ctrl.todos track by $index">
         <md-checkbox ng-model="todo.done" aria-label="test"></md-checkbox>
         <span class="done-{{ todo.done }} md-list-item-text" style="margin-left:155px;">{{ todo.text }}</span>
-        <md-button class="md-top" type="button" ui-sref="todos.edit({ id: todo.id })">
+        <md-button class="md-top" type="button" ng-click="$event.stopPropagation()" ui-sref="todos.edit({ id: todo.id })">
           <i class="material-icons md-15">create</i>
         </md-button>
         <md-button class="md-top" type="button" ng-click="$ctrl.removeTodo(todo.id)">
