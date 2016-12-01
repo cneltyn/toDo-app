@@ -1,1 +1,1 @@
-angular.module('todoApp.components', ['ui.bootstrap']);
+angular.module('todoApp.components', []);

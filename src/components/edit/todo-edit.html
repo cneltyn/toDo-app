@@ -1,8 +1,10 @@
-<form ng-submit="$ctrl.editTodo()" class="todo-form" type="submit">
-	<input type="text" ng-model="$ctrl.todo.text" placeholder="Edit ToDo item" required/>
-     	<br />
-    <input type="submit" value="Edit task"/>
+<form ng-submit="$ctrl.editTodo()">
+  <md-input-container class="md-block" flex-gt-sm required>
+  	<label>Edit ToDo item</label>
+    <input class="md-center" ng-model="$ctrl.todo.text">
+  </md-input-container>
+  <md-button class="md-raised" type="submit" ng-disabled="!$ctrl.todo.text">Edit Task</md-button>
 </form>
 <center>
-	<a class="btn btn-danger" ng-disabled="!$ctrl.todo.text" ui-sref="todos">Hide input</a>
+  <md-button class="md-raised md-warn" ng-disabled="!$ctrl.todo.text" ui-sref="todos">Hide input</md-button>
 </center>

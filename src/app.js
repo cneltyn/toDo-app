@@ -1,5 +1,5 @@
 angular.module('todoApp', [
-  'ui.router', 'todoApp.components', 'todoApp.services'
+  'ui.router', 'todoApp.components', 'todoApp.services', 'ngMaterial'
 ])
 .config(routing);
 

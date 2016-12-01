@@ -1,36 +1,46 @@
-<div class="container" id="todo-list-main">
-  <div class="page-header">
-    <h1>To-Do List</h1>
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h2 class="md-flex">{{ $ctrl.appTitle }}</h2>
   </div>
+</md-toolbar>
+
+<div class="md-height" layout="column" ng-cloak>
+
+  <md-toolbar md-scroll-shrink ng-if="true">
+    <div class="md-toolbar-tools">
+      <h3>
+        <span>To-Do List</span>
+      </h3>
+    </div>
+  </md-toolbar>
+
+  <md-content flex>
+
+    <section class="archive-control">
+      <span>{{ $ctrl.remaining() }} of {{ $ctrl.todos.length }} remaining</span>
+    </section>
+    <md-button class="md-primary md-hue-1" ng-click="$ctrl.archive()">Remove Completed Items</md-button>
+
+    <md-list>
+
+      <md-list-item class="md-3-line" ng-repeat="todo in $ctrl.todos track by $index">
+        <md-checkbox ng-model="todo.done" aria-label="test"></md-checkbox>
+        <span class="done-{{ todo.done }} md-list-item-text" style="margin-left:155px;">{{ todo.text }}</span>
+        <md-button class="md-top" type="button" ui-sref="todos.edit({ id: todo.id })">
+          <i class="material-icons md-15">create</i>
+        </md-button>
+        <md-button class="md-top" type="button" ng-click="$ctrl.removeTodo(todo.id)">
+          <i class="material-icons md-15">clear</i>
+        </md-button>
+          <md-divider inset></md-divider>
+        </md-list-item>
+
+    </md-list>
+  </md-content>
 </div>
-  <header class="app-header">
-    <h1 class="app-title">{{ $ctrl.appTitle }}</h1>
-  </header>
-<section class="app-body">
-  <section class="archive-control">
-    <span>{{ $ctrl.remaining() }} of {{ $ctrl.todos.length }} remaining</span>
-      <p>[ <a href="" ng-click="$ctrl.archive()">Remove Completed Items</a> ]</p>
-  </section>
-  <ul class="unstyled">
-    <li ng-repeat="todo in $ctrl.todos track by $index">
-      <input id='check' type="checkbox" ng-model="todo.done">
-      <span class="done-{{ todo.done }}">{{ todo.text }}
-        <a type="button" class="btn btn-default btn-xs" ui-sref="todos.edit({ id: todo.id})">
-          <span class="glyphicon glyphicon-pencil"></span>
-          Edit
-        </a>
-        <a type="button" class="btn btn-default btn-xs" ng-click="$ctrl.removeTodo(todo.id)">
-          <span class="glyphicon glyphicon-remove"></span>
-        Remove
-        </a>
-      </span>
-    </li>
-  </ul>
-  <div ui-view></div>
-  <center>
-    <a type="button" class="btn btn-primary btn-lg" ui-sref="todos.create">
-      <span class="glyphicon glyphicon-plus"></span>
-        New task
-    </a>
-  </center>
-</section>
+<div ui-view></div>
+<center>
+  <md-button class="md-raised md-primary" ui-sref="todos.create">
+      New task
+  </md-button>
+</center>

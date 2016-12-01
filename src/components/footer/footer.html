@@ -1,7 +1,6 @@
-<header class="app-header">
-	<div>
-        <p class="navbar-text pull-left">© {{ $ctrl.date | date:'yyyy-MM-dd' }}
-			<a ng-href="https://github.com/cneltyn/toDo-app">github</a>
-        </p>
-    </div>
-</header>
+<md-toolbar class="md-scroll-shrink">
+  <div layout="row" layout-align="center center" flex>
+    <i class="material-icons md-15">account_circle</i>{{ $ctrl.date | date:'yyyy-MM-dd' }}
+    <a ng-href="https://github.com/cneltyn/toDo-app">github</a>
+  </div>
+</md-toolbar>

@@ -1,11 +1,10 @@
-<form ng-submit="$ctrl.addTodo()" class="todo-form">
-	<input type="text" ng-model="$ctrl.todoText" placeholder="Enter new ToDo item" required/>
-     	<br />
-    <input type="submit" value="Add Task"/>
-    <div class="drop-zone" drag content="text">
-		<textarea>{{text}}</textarea>
-	</div>
+<form ng-submit="$ctrl.addTodo()">
+  <md-input-container class="md-block" flex-gt-sm required>
+    <label>Enter new ToDo item or drop a .txt file here</label>
+    <input class="md-center" drag ng-model="$ctrl.todoText">
+  </md-input-container>
+  <md-button class="md-raised" type="submit" ng-disabled="!$ctrl.todoText">Add Task</md-button>
 </form>
 <center>
-	<a class="btn btn-danger" ui-sref="todos">Hide input</a>
+  <md-button class="md-raised md-warn" ui-sref="todos">Hide input</md-button>
 </center>
