@@ -1,12 +1,11 @@
-<md-toolbar>
-  <div class="md-toolbar-tools">
-    <h2 class="md-flex">{{ $ctrl.appTitle }}</h2>
-  </div>
-</md-toolbar>
-
 <div class="md-height" layout="column" ng-cloak>
+  <md-toolbar class="md-fix">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">{{ $ctrl.appTitle }}</h2>
+    </div>
+  </md-toolbar>
 
-  <md-toolbar md-scroll-shrink ng-if="true">
+  <md-toolbar>
     <div class="md-toolbar-tools">
       <h3>
         <span>To-Do List</span>
@@ -36,11 +35,11 @@
         </md-list-item>
 
     </md-list>
+    <div ui-view></div>
+    <center>
+      <md-button class="md-raised md-primary" ui-sref="todos.create">
+          New task
+      </md-button>
+    </center>
   </md-content>
 </div>
-<div ui-view></div>
-<center>
-  <md-button class="md-raised md-primary" ui-sref="todos.create">
-      New task
-  </md-button>
-</center>

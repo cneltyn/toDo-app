@@ -13,6 +13,7 @@ const sass = require('gulp-sass');
 const del = require('del');
 const gulpIf = require('gulp-if');
 const eslint = require('gulp-eslint');
+const pages = require('gulp-gh-pages');
 
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 
@@ -98,3 +99,8 @@ gulp.task('serve', gulp.series('build', function(done) {
 
   return done();
 }));
+
+gulp.task('deploy', function() {
+  return gulp.src('dist/**/*')
+    .pipe(pages());
+});
